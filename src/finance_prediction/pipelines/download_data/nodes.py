@@ -41,8 +41,42 @@ def download_data_today(symbol: str) -> pd.DataFrame:
     return target_data
 
 
-def save_data(df: pd.DataFrame, symbol: str, path_data: str):
+def download_data_period(symbol: str, date_start: str, date_end: str) -> pd.DataFrame:
+    """Download data on a specific period
+
+    Args:
+        symbol (str): Symbol of the finance on Yahoo Finance
+        date_start (str): Start date of the period
+        end_date (str): End date of the period
+    Returns:
+        target_data (pd.DataFrame): Data of the finance index value
     """
+    # Symbol on Yahoo Finance
+    target_symbol = symbol
+    # Define date
+    format_string = "%Y-%m-%d"
+    date_start = datetime.strptime(date_start, format_string)
+    date_end = datetime.strptime(date_end, format_string)
+
+    # Download historical data
+    try:
+        target_data = yf.download(target_symbol, start=date_start, end=date_end)
+        target_data.reset_index(inplace=True)
+        target_data['Date'] = target_data['Date'].dt.strftime('%Y-%m-%d')
+        target_data['Date'] = pd.to_datetime(target_data['Date'])
+        target_data = target_data[['Date', 'Close']]
+    except Exception:
+        target_data = pd.DataFrame()
+    return target_data
+
+
+def save_data(df: pd.DataFrame, symbol: str, path_data: str) -> None:
+    """Save data to the dataset if not already present in the dataset
+
+    Args:
+        df (pd.DataFrame): Input dataframe
+        symbol (str): Symbol of the finance index on Yahoo finance
+        path_data (str): Path to the data folder
     """
     if not df.empty:
         # Load historic data
