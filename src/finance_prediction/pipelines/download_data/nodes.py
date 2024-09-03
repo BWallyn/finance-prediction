@@ -6,8 +6,8 @@ generated using Kedro 0.19.8
 # ==== IMPORTS ====
 # =================
 
-import datetime
 import os
+from datetime import datetime
 
 import pandas as pd
 import yfinance as yf
