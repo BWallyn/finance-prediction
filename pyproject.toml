@@ -46,3 +46,6 @@ attr = "finance_prediction.__version__"
 [tool.setuptools.packages.find]
 where = [ "src",]
 namespaces = false
+
+[tool.kedro_telemetry]
+project_id = "09ae2fc4262b4046963d99773403aed4"
