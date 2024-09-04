@@ -81,7 +81,7 @@ def save_data(df: pd.DataFrame, symbol: str, path_data: str) -> None:
     if not df.empty:
         # Load historic data
         hist_file_name = os.path.join(path_data, f'{symbol}.csv')
-        df_hist = pd.read_csv(hist_file_name)
+        df_hist = pd.read_parquet(hist_file_name)
         # Convert the date column to the right type
         df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
 
@@ -93,4 +93,4 @@ def save_data(df: pd.DataFrame, symbol: str, path_data: str) -> None:
             df = pd.concat([df, df_hist])
 
             # Save the updated dataframe
-            df.to_csv(hist_file_name, index=False)
+            df.to_parquet(hist_file_name, index=False)
