@@ -27,7 +27,7 @@ def download_data_today(symbol: str) -> pd.DataFrame:
     # Symbol on Yahoo Finance
     target_symbol = symbol
     # Define date
-    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    today = datetime.now().strftime('%Y-%m-%d')
 
     # Download historical data
     try:
